@@ -35,8 +35,16 @@ const WorkoutSchema = new Schema({
                 default: 0
             }
         }
-    ]
+    ],
+    totalDuration: {
+        type: Number,
+        default: function () {
+            this.totalDuration = this.exercises.reduce((totalDuration, current) => totalDuration + current.duration, 0);
+            return this.totalDuration;
+        }
+    }
 });
+
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
